@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/internetshop</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">root</property>
+      <mapping class="com.ua.videoStore.model.Catalog"/>
+      <mapping class="com.ua.videoStore.model.Category"/>
+      <mapping class="com.ua.videoStore.model.Field"/>
+      <mapping class="com.ua.videoStore.model.Order"/>
+      <mapping class="com.ua.videoStore.model.OrderItem"/>
+      <mapping class="com.ua.videoStore.model.Product"/>
+      <mapping class="com.ua.videoStore.model.ProductField"/>
+      <mapping class="com.ua.videoStore.model.Status"/>
+      <mapping class="com.ua.videoStore.model.User"/>
+      <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
