@@ -8,10 +8,10 @@ import java.util.Objects;
 public class Field {
     private int fieldId;
     private String name;
-    private Collection<ProductField> productFieldsByFieldId;
+    private Collection<ProductField> product;
 
     @Id
-    @Column(name = "field_id")
+    @Column(name = "field_id", nullable = false)
     public int getFieldId() {
         return fieldId;
     }
@@ -21,7 +21,7 @@ public class Field {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 45)
     public String getName() {
         return name;
     }
@@ -45,12 +45,12 @@ public class Field {
         return Objects.hash(fieldId, name);
     }
 
-    @OneToMany(mappedBy = "fieldByFieldId")
-    public Collection<ProductField> getProductFieldsByFieldId() {
-        return productFieldsByFieldId;
+    @OneToMany(mappedBy = "field")
+    public Collection<ProductField> getProduct() {
+        return product;
     }
 
-    public void setProductFieldsByFieldId(Collection<ProductField> productFieldsByFieldId) {
-        this.productFieldsByFieldId = productFieldsByFieldId;
+    public void setProduct(Collection<ProductField> product) {
+        this.product = product;
     }
 }

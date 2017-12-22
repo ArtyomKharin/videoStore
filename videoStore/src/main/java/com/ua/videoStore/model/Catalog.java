@@ -9,10 +9,10 @@ public class Catalog {
     private int catalogId;
     private String image;
     private String title;
-    private Collection<Category> categoriesByCatalogId;
+    private Collection<Category> categories;
 
     @Id
-    @Column(name = "catalog_id")
+    @Column(name = "catalog_id", nullable = false)
     public int getCatalogId() {
         return catalogId;
     }
@@ -22,7 +22,7 @@ public class Catalog {
     }
 
     @Basic
-    @Column(name = "image")
+    @Column(name = "image", nullable = false, length = 60)
     public String getImage() {
         return image;
     }
@@ -32,7 +32,7 @@ public class Catalog {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 45)
     public String getTitle() {
         return title;
     }
@@ -57,12 +57,12 @@ public class Catalog {
         return Objects.hash(catalogId, image, title);
     }
 
-    @OneToMany(mappedBy = "catalogByCatalogId")
-    public Collection<Category> getCategoriesByCatalogId() {
-        return categoriesByCatalogId;
+    @OneToMany(mappedBy = "catalog")
+    public Collection<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategoriesByCatalogId(Collection<Category> categoriesByCatalogId) {
-        this.categoriesByCatalogId = categoriesByCatalogId;
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
     }
 }

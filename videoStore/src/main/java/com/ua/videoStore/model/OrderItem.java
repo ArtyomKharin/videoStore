@@ -7,24 +7,25 @@ import java.util.Objects;
 @Table(name = "order_item", schema = "internetshop", catalog = "")
 @IdClass(OrderItemPK.class)
 public class OrderItem {
-    private int orderItemId;
+    private int productId;
     private int orderId;
     private int quantity;
     private double price;
-    private Order orderByOrderId;
+    private Product product;
+    private Order order;
 
     @Id
-    @Column(name = "order_item_id")
-    public int getOrderItemId() {
-        return orderItemId;
+    @Column(name = "product_id", nullable = false)
+    public int getProductId() {
+        return productId;
     }
 
-    public void setOrderItemId(int orderItemId) {
-        this.orderItemId = orderItemId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     public int getOrderId() {
         return orderId;
     }
@@ -34,7 +35,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     public int getQuantity() {
         return quantity;
     }
@@ -44,7 +45,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "price")
+    @Column(name = "price", nullable = false, precision = 0)
     public double getPrice() {
         return price;
     }
@@ -58,7 +59,7 @@ public class OrderItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderItem orderItem = (OrderItem) o;
-        return orderItemId == orderItem.orderItemId &&
+        return productId == orderItem.productId &&
                 orderId == orderItem.orderId &&
                 quantity == orderItem.quantity &&
                 Double.compare(orderItem.price, price) == 0;
@@ -67,16 +68,26 @@ public class OrderItem {
     @Override
     public int hashCode() {
 
-        return Objects.hash(orderItemId, orderId, quantity, price);
+        return Objects.hash(productId, orderId, quantity, price);
     }
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable=false, updatable=false)
-    public Order getOrderByOrderId() {
-        return orderByOrderId;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
+    public Product getProduct() {
+        return product;
     }
 
-    public void setOrderByOrderId(Order orderByOrderId) {
-        this.orderByOrderId = orderByOrderId;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

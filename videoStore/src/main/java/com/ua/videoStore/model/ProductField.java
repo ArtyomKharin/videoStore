@@ -7,23 +7,24 @@ import java.util.Objects;
 @Table(name = "product_field", schema = "internetshop", catalog = "")
 @IdClass(ProductFieldPK.class)
 public class ProductField {
-    private int productFieldId;
+    private int productId;
     private int fieldId;
     private String value;
-    private Field fieldByFieldId;
+    private Product product;
+    private Field field;
 
     @Id
-    @Column(name = "product_field_id")
-    public int getProductFieldId() {
-        return productFieldId;
+    @Column(name = "product_id", nullable = false)
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProductFieldId(int productFieldId) {
-        this.productFieldId = productFieldId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     @Id
-    @Column(name = "field_id")
+    @Column(name = "field_id", nullable = false)
     public int getFieldId() {
         return fieldId;
     }
@@ -33,7 +34,7 @@ public class ProductField {
     }
 
     @Basic
-    @Column(name = "value")
+    @Column(name = "value", nullable = true, length = 45)
     public String getValue() {
         return value;
     }
@@ -47,7 +48,7 @@ public class ProductField {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductField that = (ProductField) o;
-        return productFieldId == that.productFieldId &&
+        return productId == that.productId &&
                 fieldId == that.fieldId &&
                 Objects.equals(value, that.value);
     }
@@ -55,16 +56,26 @@ public class ProductField {
     @Override
     public int hashCode() {
 
-        return Objects.hash(productFieldId, fieldId, value);
+        return Objects.hash(productId, fieldId, value);
     }
 
     @ManyToOne
-    @JoinColumn(name = "field_id", referencedColumnName = "field_id", nullable = false, insertable=false, updatable=false)
-    public Field getFieldByFieldId() {
-        return fieldByFieldId;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
+    public Product getProduct() {
+        return product;
     }
 
-    public void setFieldByFieldId(Field fieldByFieldId) {
-        this.fieldByFieldId = fieldByFieldId;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "field_id", referencedColumnName = "field_id", nullable = false, insertable = false, updatable = false)
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
     }
 }

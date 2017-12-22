@@ -1,6 +1,7 @@
 package com.ua.videoStore.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -9,11 +10,12 @@ public class Product {
     private String title;
     private String image;
     private double currentPrice;
-    private Integer categoryId;
-    private Category categoryByCategoryId;
+    private Collection<OrderItem> orderItems;
+    private Category category;
+    private Collection<ProductField> productFields;
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
     }
@@ -23,7 +25,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 45)
     public String getTitle() {
         return title;
     }
@@ -33,7 +35,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "image")
+    @Column(name = "image", nullable = false, length = 60)
     public String getImage() {
         return image;
     }
@@ -43,23 +45,13 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "current_price")
+    @Column(name = "current_price", nullable = false, precision = 0)
     public double getCurrentPrice() {
         return currentPrice;
     }
 
     public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
-    }
-
-    @Basic
-    @Column(name = "category_id")
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
     }
 
     @Override
@@ -70,23 +62,40 @@ public class Product {
         return productId == product.productId &&
                 Double.compare(product.currentPrice, currentPrice) == 0 &&
                 Objects.equals(title, product.title) &&
-                Objects.equals(image, product.image) &&
-                Objects.equals(categoryId, product.categoryId);
+                Objects.equals(image, product.image);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(productId, title, image, currentPrice, categoryId);
+        return Objects.hash(productId, title, image, currentPrice);
+    }
+
+    @OneToMany(mappedBy = "product")
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Collection<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable=false, updatable=false)
-    public Category getCategoryByCategoryId() {
-        return categoryByCategoryId;
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryByCategoryId(Category categoryByCategoryId) {
-        this.categoryByCategoryId = categoryByCategoryId;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @OneToMany(mappedBy = "product")
+    public Collection<ProductField> getProductFields() {
+        return productFields;
+    }
+
+    public void setProductFields(Collection<ProductField> productFields) {
+        this.productFields = productFields;
     }
 }

@@ -10,14 +10,12 @@ public class Order {
     private int orderId;
     private Timestamp date;
     private double totalSum;
-    private int userId;
-    private int statusId;
-    private User userByUserId;
-    private Status statusByStatusId;
-    private Collection<OrderItem> orderItemsByOrderId;
+    private User user;
+    private Status status;
+    private Collection<OrderItem> orderItems;
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     public int getOrderId() {
         return orderId;
     }
@@ -27,7 +25,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "date")
+    @Column(name = "date", nullable = true)
     public Timestamp getDate() {
         return date;
     }
@@ -37,33 +35,13 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "total_sum")
+    @Column(name = "total_sum", nullable = false, precision = 0)
     public double getTotalSum() {
         return totalSum;
     }
 
     public void setTotalSum(double totalSum) {
         this.totalSum = totalSum;
-    }
-
-    @Basic
-    @Column(name = "user_id" )
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "status_id")
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
     }
 
     @Override
@@ -73,43 +51,41 @@ public class Order {
         Order order = (Order) o;
         return orderId == order.orderId &&
                 Double.compare(order.totalSum, totalSum) == 0 &&
-                userId == order.userId &&
-                statusId == order.statusId &&
                 Objects.equals(date, order.date);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(orderId, date, totalSum, userId, statusId);
+        return Objects.hash(orderId, date, totalSum);
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable=false, updatable=false)
-    public User getUserByUserId() {
-        return userByUserId;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @ManyToOne
-    @JoinColumn(name = "status_id", referencedColumnName = "status_id", nullable = false, insertable=false, updatable=false)
-    public Status getStatusByStatusId() {
-        return statusByStatusId;
+    @JoinColumn(name = "status_id", referencedColumnName = "status_id", nullable = false, insertable = false, updatable = false)
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatusByStatusId(Status statusByStatusId) {
-        this.statusByStatusId = statusByStatusId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    @OneToMany(mappedBy = "orderByOrderId")
-    public Collection<OrderItem> getOrderItemsByOrderId() {
-        return orderItemsByOrderId;
+    @OneToMany(mappedBy = "order")
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemsByOrderId(Collection<OrderItem> orderItemsByOrderId) {
-        this.orderItemsByOrderId = orderItemsByOrderId;
+    public void setOrderItems(Collection<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

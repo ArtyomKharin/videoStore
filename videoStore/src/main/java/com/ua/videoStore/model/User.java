@@ -15,7 +15,7 @@ public class User {
     private Collection<Order> ordersByUserId;
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -25,7 +25,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, length = 45)
     public String getPassword() {
         return password;
     }
@@ -35,7 +35,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 45)
     public String getFirstName() {
         return firstName;
     }
@@ -45,7 +45,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     public String getLastName() {
         return lastName;
     }
@@ -55,7 +55,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 45)
     public String getEmail() {
         return email;
     }
@@ -65,7 +65,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "store_credit")
+    @Column(name = "store_credit", nullable = true, precision = 0)
     public Double getStoreCredit() {
         return storeCredit;
     }
@@ -93,7 +93,7 @@ public class User {
         return Objects.hash(userId, password, firstName, lastName, email, storeCredit);
     }
 
-    @OneToMany(mappedBy = "userByUserId")
+    @OneToMany(mappedBy = "user")
     public Collection<Order> getOrdersByUserId() {
         return ordersByUserId;
     }

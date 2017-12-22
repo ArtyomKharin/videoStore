@@ -6,20 +6,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class OrderItemPK implements Serializable {
-    private int orderItemId;
+    private int productId;
     private int orderId;
 
-    @Column(name = "order_item_id")
+    @Column(name = "product_id", nullable = false)
     @Id
-    public int getOrderItemId() {
-        return orderItemId;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setOrderItemId(int orderItemId) {
-        this.orderItemId = orderItemId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     @Id
     public int getOrderId() {
         return orderId;
@@ -34,13 +34,13 @@ public class OrderItemPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderItemPK that = (OrderItemPK) o;
-        return orderItemId == that.orderItemId &&
+        return productId == that.productId &&
                 orderId == that.orderId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(orderItemId, orderId);
+        return Objects.hash(productId, orderId);
     }
 }

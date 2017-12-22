@@ -9,12 +9,11 @@ public class Category {
     private int categoryId;
     private String title;
     private String image;
-    private int catalogId;
-    private Catalog catalogByCatalogId;
-    private Collection<Product> productsByCategoryId;
+    private Catalog catalog;
+    private Collection<Product> products;
 
     @Id
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     public int getCategoryId() {
         return categoryId;
     }
@@ -24,7 +23,7 @@ public class Category {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 45)
     public String getTitle() {
         return title;
     }
@@ -34,7 +33,7 @@ public class Category {
     }
 
     @Basic
-    @Column(name = "image")
+    @Column(name = "image", nullable = false, length = 60)
     public String getImage() {
         return image;
     }
@@ -43,23 +42,12 @@ public class Category {
         this.image = image;
     }
 
-    @Basic
-    @Column(name = "catalog_id")
-    public int getCatalogId() {
-        return catalogId;
-    }
-
-    public void setCatalogId(int catalogId) {
-        this.catalogId = catalogId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
         return categoryId == category.categoryId &&
-                catalogId == category.catalogId &&
                 Objects.equals(title, category.title) &&
                 Objects.equals(image, category.image);
     }
@@ -67,25 +55,25 @@ public class Category {
     @Override
     public int hashCode() {
 
-        return Objects.hash(categoryId, title, image, catalogId);
+        return Objects.hash(categoryId, title, image);
     }
 
     @ManyToOne
-    @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id", nullable = false, insertable=false, updatable=false)
-    public Catalog getCatalogByCatalogId() {
-        return catalogByCatalogId;
+    @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id", nullable = false, insertable = false, updatable = false)
+    public Catalog getCatalog() {
+        return catalog;
     }
 
-    public void setCatalogByCatalogId(Catalog catalogByCatalogId) {
-        this.catalogByCatalogId = catalogByCatalogId;
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
     }
 
-    @OneToMany(mappedBy = "categoryByCategoryId")
-    public Collection<Product> getProductsByCategoryId() {
-        return productsByCategoryId;
+    @OneToMany(mappedBy = "category")
+    public Collection<Product> getProducts() {
+        return products;
     }
 
-    public void setProductsByCategoryId(Collection<Product> productsByCategoryId) {
-        this.productsByCategoryId = productsByCategoryId;
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
     }
 }

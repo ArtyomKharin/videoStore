@@ -8,10 +8,10 @@ import java.util.Objects;
 public class Status {
     private int statusId;
     private String title;
-    private Collection<Order> ordersByStatusId;
+    private Collection<Order> orders;
 
     @Id
-    @Column(name = "status_id")
+    @Column(name = "status_id", nullable = false)
     public int getStatusId() {
         return statusId;
     }
@@ -21,7 +21,7 @@ public class Status {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 45)
     public String getTitle() {
         return title;
     }
@@ -45,12 +45,12 @@ public class Status {
         return Objects.hash(statusId, title);
     }
 
-    @OneToMany(mappedBy = "statusByStatusId")
-    public Collection<Order> getOrdersByStatusId() {
-        return ordersByStatusId;
+    @OneToMany(mappedBy = "status")
+    public Collection<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrdersByStatusId(Collection<Order> ordersByStatusId) {
-        this.ordersByStatusId = ordersByStatusId;
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -6,20 +6,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class ProductFieldPK implements Serializable {
-    private int productFieldId;
+    private int productId;
     private int fieldId;
 
-    @Column(name = "product_field_id")
+    @Column(name = "product_id", nullable = false)
     @Id
-    public int getProductFieldId() {
-        return productFieldId;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProductFieldId(int productFieldId) {
-        this.productFieldId = productFieldId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    @Column(name = "field_id")
+    @Column(name = "field_id", nullable = false)
     @Id
     public int getFieldId() {
         return fieldId;
@@ -34,13 +34,13 @@ public class ProductFieldPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductFieldPK that = (ProductFieldPK) o;
-        return productFieldId == that.productFieldId &&
+        return productId == that.productId &&
                 fieldId == that.fieldId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(productFieldId, fieldId);
+        return Objects.hash(productId, fieldId);
     }
 }
