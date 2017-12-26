@@ -1,5 +1,7 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.Objects;
 public class Field {
     private int fieldId;
     private String name;
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<ProductField> product;
 
     @Id

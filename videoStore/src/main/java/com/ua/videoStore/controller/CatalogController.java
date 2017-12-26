@@ -32,11 +32,8 @@ public class CatalogController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Catalog> getCatalogById(@PathVariable String id){
-        if(!StringUtils.isNumeric(id)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Catalog catalog = catalogService.findOne(Integer.parseInt(id));
+    public ResponseEntity<Catalog> getCatalogById(@PathVariable Integer id){
+        Catalog catalog = catalogService.findOne(id);
         if(catalog == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{

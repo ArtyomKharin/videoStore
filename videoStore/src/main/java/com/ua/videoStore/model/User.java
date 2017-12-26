@@ -1,5 +1,7 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class User {
     private String lastName;
     private String email;
     private Double storeCredit;
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<Order> ordersByUserId;
 
     @Id

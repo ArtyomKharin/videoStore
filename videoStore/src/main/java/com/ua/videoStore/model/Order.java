@@ -1,5 +1,7 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -12,6 +14,7 @@ public class Order {
     private double totalSum;
     private User user;
     private Status status;
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<OrderItem> orderItems;
 
     @Id

@@ -1,5 +1,7 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -9,6 +11,7 @@ public class Catalog {
     private int catalogId;
     private String image;
     private String title;
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<Category> categories;
 
     @Id
