@@ -21,7 +21,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping("catalog/{id}/products")
+    @RequestMapping("category/{id}/products")
     public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable Integer id){
         List<Product> products = productService.findByCategory(id);
         if(products == null) {

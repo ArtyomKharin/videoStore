@@ -33,6 +33,6 @@ public class ProductServiceImpl implements ProductService {
         if (category == null) {
             return null;
         }
-        return productRepository.findByCategory(category);
+        return (List<Product>) category.getProducts();
     }
 }
