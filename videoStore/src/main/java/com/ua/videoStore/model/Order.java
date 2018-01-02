@@ -1,6 +1,9 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,13 +11,14 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 public class Order {
     private int orderId;
     private Timestamp date;
     private double totalSum;
+    @JsonIgnore
     private User user;
     private Status status;
-    @JsonIdentityReference(alwaysAsId = true)
     private Collection<OrderItem> orderItems;
 
     @Id

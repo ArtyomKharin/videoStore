@@ -15,10 +15,7 @@ public class Product {
     private String title;
     private String image;
     private double currentPrice;
-    @JsonIdentityReference(alwaysAsId = true)
-    private Collection<OrderItem> orderItems;
     private Category category;
-    @JsonIdentityReference(alwaysAsId = true)
     private Collection<ProductField> productFields;
 
     @Id
@@ -76,15 +73,6 @@ public class Product {
     public int hashCode() {
 
         return Objects.hash(productId, title, image, currentPrice);
-    }
-
-    @OneToMany(mappedBy = "product")
-    public Collection<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Collection<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     @ManyToOne

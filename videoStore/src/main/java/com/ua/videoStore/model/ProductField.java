@@ -1,15 +1,21 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "product_field", schema = "internetshop", catalog = "")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 @IdClass(ProductFieldPK.class)
 public class ProductField {
     private int productId;
     private int fieldId;
     private String value;
+    @JsonIgnore
     private Product product;
     private Field field;
 

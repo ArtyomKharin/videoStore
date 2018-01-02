@@ -1,6 +1,7 @@
 package com.ua.videoStore.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class Status {
     private int statusId;
     private String title;
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private Collection<Order> orders;
 
     @Id

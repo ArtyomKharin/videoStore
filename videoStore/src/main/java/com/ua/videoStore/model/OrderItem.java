@@ -1,10 +1,15 @@
 package com.ua.videoStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_item", schema = "internetshop", catalog = "")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 @IdClass(OrderItemPK.class)
 public class OrderItem {
     private int productId;
@@ -12,6 +17,7 @@ public class OrderItem {
     private int quantity;
     private double price;
     private Product product;
+    @JsonIgnore
     private Order order;
 
     @Id
@@ -67,7 +73,6 @@ public class OrderItem {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(productId, orderId, quantity, price);
     }
 
